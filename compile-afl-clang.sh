@@ -1,5 +1,8 @@
 #! /bin/sh
 
+GREEN='\033[0;32m'
+NC='\033[0m'
+
 wget http://lcamtuf.coredump.cx/afl.tgz
 tar xfz afl.tgz
 rm afl.tgz
@@ -10,19 +13,19 @@ cd `find . -type d -iname "afl-*"|sort|tail -1`
 export CC=clang
 export CXX=clang++
 
-echo '[+] Building afl-fuzz, afl-gcc etc.'
+printf "${GREEN}[+] Building afl-fuzz, afl-gcc etc.${NC}\n"
 make
 
-echo '[+] Building llvm_mode'
+printf "${GREEN}[+] Building llvm_mode.${NC}\n"
 make -C llvm_mode
 
-echo '[+] Building libdislocator'
+printf "${GREEN}[+] Building libdislocator.${NC}\n"
 make -C libdislocator
 
-echo '[+] Building libtokencap'
+printf "${GREEN}[+] Building libtokencap.${NC}\n"
 make -C libtokencap
 
-echo "Provide sudo password for sudo make install"
+printf "${GREEN}Provide sudo password for sudo make install.${NC}\n"
 sudo make install
 
 unset CC
