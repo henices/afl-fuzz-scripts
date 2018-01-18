@@ -4,11 +4,8 @@
 import sys
 import os
 import os.path
+import argparse
 from shutil import copyfile
-
-def usage():
-    print('%s <input dir> <output dir>' % sys.argv[0])
-    sys.exit(-1)
 
 def _format(idx):
     length = len(str(idx))
@@ -17,15 +14,19 @@ def _format(idx):
 
 if __name__ == '__main__':
 
-    if len(sys.argv) - 1 != 2:
-        usage()
+    parser = argparse.ArgumentParser(
+            description='Corpora rename script for afl-fuzz')
+    parser.add_argument('-i', '--input',required=True, help='input directory')
+    parser.add_argument('-o', '--output',required=True, help='output directory')
+    parser.add_argument('-n', '--number', type=int, required=False, default=0,
+            help='first id')
+    args = parser.parse_args()
 
-    in_dir = sys.argv[1]
-    out_dir = sys.argv[2]
+    in_dir = args.input
+    out_dir = args.output
+    idx = args.number
 
     os.mkdir(out_dir)
-
-    idx = 0
 
     for (root, dirs, files) in os.walk(in_dir):
         for sample in files:
