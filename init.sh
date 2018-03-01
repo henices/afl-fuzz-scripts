@@ -7,3 +7,6 @@ echo 1 >/proc/sys/kernel/sched_autogroup_enabled
 
 cd /sys/devices/system/cpu
 echo performance | tee cpu*/cpufreq/scaling_governor
+
+
+echo 1 > /proc/sys/vm/overcommit_memory
