@@ -17,7 +17,7 @@ def _format(idx):
     return 'id:' + '0' * fix_length + str(idx) + ','
 
 def is_bypass(p, n):
-    if ',sync:' in n or '.state' in p:
+    if ',sync:' in n or '/.state' in p:
         return True
     return False
 
