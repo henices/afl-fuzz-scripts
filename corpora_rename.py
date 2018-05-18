@@ -16,8 +16,8 @@ def _format(idx):
     fix_length = 6 - length
     return 'id:' + '0' * fix_length + str(idx) + ','
 
-def is_sync_file(s):
-    if ',sync:' in s:
+def is_bypass(p, n):
+    if ',sync:' in n or '.state' in p:
         return True
     return False
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     for (root, dirs, files) in os.walk(in_dir):
         for sample in files:
-            if is_afl and is_sync_file(sample):
+            if is_afl and is_bypass(root, sample):
                 continue
 
             src_path = os.path.join(root, sample)
